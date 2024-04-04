@@ -7,7 +7,13 @@ export default {
     "./components/**/*.{html,js}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "cream-header": "#FEFBE6",
+        "header-border": "#C7BF85",
+        "cream-body": "#FFFEF6",
+      },
+    },
   },
   plugins: [],
 };
