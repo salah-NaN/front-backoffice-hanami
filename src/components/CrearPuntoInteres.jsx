@@ -1,6 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { MapSearchMyLocation } from "./";
 
 export const CrearPuntoInteres = () => {
+  const [currentPosition, setCurrentPosition] = useState({
+    lat: "",
+    lon: "",
+  });
+
   const [formulario, setFormulario] = useState({
     nombre: "",
     descripcion: "",
@@ -11,6 +17,31 @@ export const CrearPuntoInteres = () => {
     comarca: "",
   });
 
+  useEffect(() => {
+    function obtenerUbicacion() {
+      return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              resolve(position);
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        }
+      });
+    }
+
+    obtenerUbicacion()
+      .then((position) => {
+        const { coords } = position;
+        const { latitude, longitude } = coords;
+        setCurrentPosition({ lat: latitude, lon: longitude });
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   const onSubmitForm = () => {
     event.preventDefault();
   };
@@ -20,7 +51,7 @@ export const CrearPuntoInteres = () => {
       <div className="flex justify-center items-center h-full">
         <form onSubmit={onSubmitForm}>
           <h1 className="text-white">Añade un punto de interes</h1>
-          <div className="">
+          <div className="py-2">
             <input
               type="text"
               name="nombre"
@@ -31,7 +62,7 @@ export const CrearPuntoInteres = () => {
               }
             ></input>
           </div>
-          <div className="">
+          <div className="py-2">
             <input
               type="text"
               name="descripcion"
@@ -45,7 +76,7 @@ export const CrearPuntoInteres = () => {
               }
             ></input>
           </div>
-          <div className="">
+          <div className="py-2">
             <input
               type="text"
               name="latitud"
@@ -68,7 +99,7 @@ export const CrearPuntoInteres = () => {
             ></input>
           </div>
           {/* dudo si es servible este campo */}
-          <div className="">
+          <div className="py-2">
             <input
               type="text"
               name="ubicacion"
@@ -79,7 +110,7 @@ export const CrearPuntoInteres = () => {
               }
             ></input>
           </div>
-          <div className="">
+          <div className="py-2">
             <input
               type="text"
               name="poblacion"
@@ -90,7 +121,7 @@ export const CrearPuntoInteres = () => {
               }
             ></input>
           </div>
-          <div className="">
+          <div className="py-2">
             <input
               type="text"
               name="comarca"
@@ -100,6 +131,12 @@ export const CrearPuntoInteres = () => {
                 setFormulario({ ...formulario, comarca: event.target.value })
               }
             ></input>
+          </div>
+          <div className="">
+            {currentPosition.lat &&
+            currentPosition.lon ? (
+              <MapSearchMyLocation currentPosition={currentPosition} />
+            ) : null}
           </div>
           <div className="">
             <button type="submit">Enviar</button>
