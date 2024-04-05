@@ -5,12 +5,12 @@ import L from "leaflet";
 import icon from "./iconLeaflet/constnats";
 
 export const MapSearchMyLocation = ({ currentPosition }) => {
-  const [positionClicked, setPositionClicked] = useState([]);
 
   const MapComponent = () => {
     const map = useMapEvents({
       click(e) {
-        console.log(e.latlng);
+        const { lat, lng } = e.latlng;
+        L.marker([lat, lng], { icon }).addTo(map);
       },
     });
     return null;
@@ -21,7 +21,6 @@ export const MapSearchMyLocation = ({ currentPosition }) => {
       center={[currentPosition.lat, currentPosition.lon]}
       zoom={13}
       style={{ height: "14rem", width: "25rem" }}
-    
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
