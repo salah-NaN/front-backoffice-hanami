@@ -1,19 +1,32 @@
 import { useState } from "react";
-import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMapEvents,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import icon from "./iconLeaflet/constnats";
 
 export const MapSearchMyLocation = ({ currentPosition }) => {
+  // const [isChecked, setIsChecked] = useState(false);
 
   const MapComponent = () => {
+    const [position, setPosition] = useState(null);
+
     const map = useMapEvents({
       click(e) {
         const { lat, lng } = e.latlng;
-        L.marker([lat, lng], { icon }).addTo(map);
+        setPosition(e.latlng);
       },
     });
-    return null;
+    return position === null ? null : (
+      <Marker position={position}>
+        <Popup>Mi posicion</Popup>
+      </Marker>
+    );
   };
 
   return (
