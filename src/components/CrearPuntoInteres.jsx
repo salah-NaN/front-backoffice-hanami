@@ -50,7 +50,7 @@ export const CrearPuntoInteres = () => {
     <div className="bg-sky-200 w-full h-full">
       <div className="flex justify-center items-center h-full">
         <form onSubmit={onSubmitForm}>
-          <h1 className="text-white">Añade un punto de interes</h1>
+          <h1 className="text-white">Añade un punto de interes.</h1>
           <div className="py-2">
             <input
               type="text"
