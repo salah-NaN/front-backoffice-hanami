@@ -6,7 +6,7 @@ const API_URL = "http://localhost:3000/api";
 
 
 export default () => {
-    const {setLoguejat} = useContext(Contexto)
+    const {loguejat, setLoguejat} = useContext(Contexto)
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -43,6 +43,7 @@ export default () => {
         
     })
     .catch(err => console.log(err))
+
 
 }
 
