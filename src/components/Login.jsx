@@ -9,8 +9,6 @@ export default () => {
     const {setLoguejat} = useContext(Contexto)
 
     const [email, setEmail] = useState("");
-    const [nombre, setNombre] = useState("");
-    const [apellidos, setApellidos] = useState("");
     const [password, setPassword] = useState("");
 
     const redirect = useNavigate();
@@ -19,11 +17,10 @@ export default () => {
         e.preventDefault();
 
     const credenciales = {
-        nombre,
-        apellidos,
         email,
         password
     }
+    console.log(credenciales)
 
     const opciones = {
         method: 'POST',
@@ -34,7 +31,7 @@ export default () => {
         body: JSON.stringify(credenciales)
     }
 
-    fetch(API_URL+'/propietarios/login', opciones)
+    fetch(API_URL+'/login', opciones)
     .then(resp => resp.json())
     .then(data => {
         //console.log("resp", data);
@@ -61,22 +58,6 @@ export default () => {
                 <input onInput={(e) => setEmail(e.target.value)}
  value={email} className="shadow border rounded w-full py-2 px-3 text-gray-700 " id="email" type="text" placeholder="email" />
             </div>
-            <div>
-                <label className=" text-gray-700 text-sm font-bold mb-2" htmlFor="nombre">Nombre</label>
-                <input onInput={(e) => setNombre(e.target.value)}
-            value={nombre} type="text" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                    id="nombre"
-                    placeholder="Nombre"
-                />
-            </div>
-            <div>
-                <label  className=" text-gray-700 text-sm font-bold mb-2" htmlFor="apellidos">Apellidos</label>
-                <input value={apellidos} onInput={(e) => setApellidos(e.target.value)} type="text" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                    id="apellidos"
-                    placeholder="Apellidos"
-                />
-            </div>
-
             <div className="">
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                     Password
