@@ -8,13 +8,15 @@ export default () => {
   const [nombre, setNombre] = useState("");
   const [apellidos, setApellidos] = useState("");
   const [password, setPassword] = useState("");
-  const [tipoDocumento, setTipoDocumento] = useState("");
-  const [documento, setDocumento] = useState("");
+  const [tipo_documento, setTipoDocumento] = useState("");
+  const [num_doc, setNumDocumento] = useState("");
   const [latitud, setLatitud] = useState("");
   const [longitud, setLongitud] = useState("");
   const [ubicacion, setUbicacion] = useState("");
   const [poblacion, setPoblacion] = useState("");
   const [comarca, setComarca] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [entidad, setEntidad] = useState("");
 
   const redirect = useNavigate();
 
@@ -32,13 +34,15 @@ export default () => {
       apellidos,
       email,
       password,
-      tipoDocumento,
-      documento,
+      tipo_documento,
+      num_doc,
       latitud,
       longitud,
       ubicacion,
       poblacion,
       comarca,
+      telefono,
+      entidad,
     };
 
     const opciones = {
@@ -77,7 +81,9 @@ export default () => {
             type="text"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="nombre"
-            placeholder="Juan"
+            placeholder="Introduce tu nombre"
+            required
+            autoFocus
           />
         </div>
         <div>
@@ -93,7 +99,8 @@ export default () => {
             type="text"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="apellidos"
-            placeholder="Martinez Perez"
+            placeholder="Introduce tus apellidos"
+            required
           />
         </div>
 
@@ -112,6 +119,8 @@ export default () => {
             id="email"
             type="text"
             placeholder="ejemplo@example.com"
+            required
+
           />
         </div>
 
@@ -130,20 +139,22 @@ export default () => {
             id="password"
             type="password"
             placeholder="******************"
+            required
+
           />
         </div>
 
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="tipoDocumento"
+            htmlFor="tipo_documento"
           >
             Tipo Documento
           </label>
           <select
-            id="tipoDocumento"
+            id="tipo_documento"
             onChange={handleChange}
-            value={tipoDocumento}
+            value={tipo_documento}
             className="shadow border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           >
             <option selected>Escoje un tipo de documento</option>
@@ -156,17 +167,19 @@ export default () => {
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="documento"
+            htmlFor="num_doc"
           >
             Documento
           </label>
           <input
-            onInput={(e) => setDocumento(e.target.value)}
-            value={documento}
+            onInput={(e) => setNumDocumento(e.target.value)}
+            value={num_doc}
             type="text"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="documento"
-            placeholder="12345678A"
+            id="num_doc"
+            placeholder="Introduzca el numero del documento (ej. 12345678A)"
+            required
+
           />
         </div>
 
@@ -183,6 +196,9 @@ export default () => {
             type="text"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="latitud"
+            placeholder="Introduzca su latitud"
+            required
+
           />
         </div>
 
@@ -199,6 +215,9 @@ export default () => {
             type="text"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="longitud"
+            placeholder="Introduzca su longitud"
+            required
+
           />
         </div>
         <div className="mb-4">
@@ -214,6 +233,9 @@ export default () => {
             type="text"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="ubicacion"
+            placeholder="Introduzca su ubicacion"
+            required
+
           />
         </div>
 
@@ -230,6 +252,9 @@ export default () => {
             type="text"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="poblacion"
+            placeholder="Introduzca su poblacion"
+            required
+
           />
         </div>
 
@@ -246,9 +271,49 @@ export default () => {
             type="text"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="comarca"
+            placeholder="Introduzca su comarca"
+            required
+
           />
         </div>
 
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="telefono"
+          >
+            Telefono
+          </label>
+          <input
+            onInput={(e) => setTelefono(e.target.value)}
+            value={telefono}
+            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            id="telefono"
+            placeholder="Introduzca su numero de telefono con su prefijo (ej. +34 123 456 789)"
+            required
+
+          />
+        </div>
+
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="entidad"
+          >
+            Entidad
+          </label>
+          <input
+            onInput={(e) => setEntidad(e.target.value)}
+            value={entidad}
+            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            id="entidad"
+            placeholder="Introduzca el nombre de la entidad"
+            required
+
+          />
+        </div>
         <div className="flex flex-row gap-4 items-center justify-center">
           <button
             className="shadow-md shadow-neutral-800 bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
