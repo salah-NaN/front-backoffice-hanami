@@ -5,40 +5,47 @@ import Cookie from "js-cookie";
 
 const API_URL = "http://localhost:3000/api/";
 
-export default () => {
+export default function PuntosInteresPropietario() {
   const { loguejat } = useContext(Contexto);
   const navigate = useNavigate();
 
   const [puntos, setPuntos] = useState([]);
-  const id = loguejat.cliente_id;
-  console.log(loguejat.cliente_id);
+  const clienteId = loguejat?.cliente_id;
+
   useEffect(() => {
-    const options = {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const URL = API_URL + "puntos_interes_propietarios/" + loguejat.cliente_id;
+    const fetchPuntos = async () => {
+      if (!clienteId) {
+        return;
+      }
 
-    console.log(URL);
-
-    fetch(URL, options)
-      .then((resp) => resp.json())
-      .then((data) => {
+      try {
+        const response = await fetch(
+          API_URL + "puntos_interes_propietarios/" + clienteId
+        );
+        const data = await response.json();
         setPuntos(data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-  console.log(puntos);
+      } catch (err) {
+        console.error("Error puntos:", err);
+      }
+    };
+
+    fetchPuntos();
+
+    return () => {};
+  }, [clienteId]);
+
   return (
     <div>
-      {puntos.map((punto) => (
-        <div key={punto.id}>
-          <p>{punto.ubicacion}</p>
-        </div>
-      ))}
+      {puntos.length > 0 ? (
+        puntos.map((punto) => (
+          <div key={punto.id} className="border-none w-full col-span-2 sm:col-span-2 md:col-span-3 lg:col-span-2 h-64">
+            <p>{punto.nombre}</p>
+
+          </div>
+        ))
+      ) : (
+        <p>Cargando puntos de interés...</p>
+      )}
     </div>
   );
-};
+}
