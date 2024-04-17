@@ -5,6 +5,7 @@ import Login from "./components/Login.jsx";
 import Register from "./components/Register.jsx";
 import MiPerfil from "./components/MiPerfil.jsx";
 import Home from "./components/Home.jsx";
+import AfegirPuntInteres from "./components/AfegirPuntInteres.jsx";
 
 import "./index.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/register" element={<Register />} />
         <Route path="/miperfil" element={<MiPerfil />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/afegirPuntInteres" element={<AfegirPuntInteres />} />
       </Route>
     </Routes>
   </BrowserRouter>
