@@ -10,7 +10,6 @@ export default () => {
     console.log(loguejat)
     return (
         <div>mi perfil
-        <button onClick={()=>redirect('/home')}>Puntos Interes</button>
 
         </div>
     )

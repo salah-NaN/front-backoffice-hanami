@@ -8,7 +8,7 @@ const API_URL = "http://localhost:3000/api/";
 export default function PointsOfInterest() {
   const { loguejat } = useContext(Contexto);
   const [points, setPoints] = useState([]);
-  const clientId = loguejat?.cliente_id;
+  const clientId = loguejat?.propietario_id;
   useEffect(() => {
     const fetchPoints = async () => {
       if (!clientId) return;

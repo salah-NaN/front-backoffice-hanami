@@ -38,7 +38,7 @@ export default () => {
         if (!data.error){
             console.log(data);
             setLoguejat(data)
-            redirect('/miperfil') 
+            redirect('/Home') 
         }
         
     })
