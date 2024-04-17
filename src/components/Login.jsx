@@ -64,7 +64,7 @@ export default () => {
                     Password
                 </label>
                 <input  onInput={(e) => setPassword(e.target.value)}
-            value={password} v className="shadow appearance-none border
+            value={password} className="shadow appearance-none border
                 rounded w-full py-2 px-3 text-gray-700 mb-3 " id="password" type="password" placeholder="******************" />
             </div>
   
