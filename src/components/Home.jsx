@@ -33,7 +33,7 @@ export default function PointsOfInterest() {
     <div>
       {points.length > 0 ? (
         points.map((point) => (
-          <div key={point.id} className="border-none w-full col-span-2 sm:col-span-2 md:col-span-3 lg:col-span-2 h-64">
+          <div key={point.id} onClick={() => redirect(`/PuntInteres/${point.id}`)} className="border-none w-full col-span-2 sm:col-span-2 md:col-span-3 lg:col-span-2 h-64">
             <p>{point.nombre}</p>
           </div>
         ))
