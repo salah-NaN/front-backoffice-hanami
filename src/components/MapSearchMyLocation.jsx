@@ -11,22 +11,18 @@ import L from "leaflet";
 import icon from "./iconLeaflet/constnats";
 import './marker.css';
 
-export const MapSearchMyLocation = ({ currentPosition }) => {
+export const MapSearchMyLocation = ({ currentPosition, updatePosition }) => {
 
   const MapComponent = () => {
-    const [position, setPosition] = useState(null);
 
     const map = useMapEvents({
       click(e) {
         const { lat, lng } = e.latlng;
-        setPosition(e.latlng);
+        updatePosition(lat, lng); // Llama a la función de devolución de llamada para actualizar la posición
       },
     });
-    return position === null ? null : (
-      <Marker position={position} icon={icon}>
-        <Popup>Mi posicion</Popup>
-      </Marker>
-    );
+
+    return null;
   };
 
   return (
@@ -35,12 +31,11 @@ export const MapSearchMyLocation = ({ currentPosition }) => {
       zoom={13}
       style={{ height: "14rem", width: "25rem" }}
     >
-      {/* <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution="&copy; OpenStreetMap contributors"
-      /> */}
       <TileLayer attribution="Mapa" url="https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png" />
       <MapComponent />
+      <Marker position={[currentPosition.lat, currentPosition.lon]} icon={icon}>
+        <Popup>Mi posicion</Popup>
+      </Marker>
     </MapContainer>
   );
 };
