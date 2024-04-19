@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MapSearchMyLocation } from "./";
+import { MapSearchMyLocation } from "./MapSearchMyLocation";
 import { useContext } from "react";
 import Contexto from "../Contexto";
 
