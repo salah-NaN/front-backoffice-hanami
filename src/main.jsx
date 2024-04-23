@@ -26,7 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/PuntInteres/:id" element={<PuntInteres />} />
         <Route path="/editarPuntInteres/:id" element={<EditarPuntoInteres />} />
         <Route path="/afegirActivitat/:id" element={<AfegirActivitat />} />
-        <Route path="/editarActivitat/:id" element={<EditarActivitat />} />
+        <Route path="/editarActivitat/:id/:idPunt" element={<EditarActivitat />} />
       </Route>
     </Routes>
   </BrowserRouter>

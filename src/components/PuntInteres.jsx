@@ -143,7 +143,7 @@ export default () => {
                   <div className="flex justify-center p-4 bg-gray-100 rounded-lg shadow-md">
                   <button
                     className="px-4 py-2 bg-green-500 hover:bg-green-700 text-white font-semibold rounded-md"
-                    onClick={() => redirect(`/editarActivitat/`+actividad.id)}
+                    onClick={() => redirect(`/editarActivitat/`+actividad.id+`/`+id)}
                   >
                     Editar
                   </button>

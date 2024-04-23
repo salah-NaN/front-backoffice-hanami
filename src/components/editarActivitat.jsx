@@ -5,7 +5,7 @@ import { useContext } from "react";
 import Contexto from "../Contexto";
 
 export default () => {
-  const { id } = useParams();
+  const { id, idPunt } = useParams();
   const API_URL = "http://localhost:3000/api";
   const redirect = useNavigate();
   const { loguejat } = useContext(Contexto);
@@ -13,6 +13,7 @@ export default () => {
     redirect("/login");
   }
   const [loading, setLoading] = useState(true);
+  const [temporadas, setTemporadas] = useState([]);
   const [activitat, setActivitat] = useState({
     nombre: "",
     categoria: "",
@@ -25,9 +26,14 @@ export default () => {
     temporada_id: "",
   });
   useEffect(() => {
-    fetch(`${API_URL}/actividades/` + id)
+    fetch(`${API_URL}/actividades/${id}`)
       .then((resp) => resp.json())
       .then((data) => setActivitat(data))
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+    fetch(`${API_URL}/actividades_punto_interes/` + idPunt)
+      .then((resp) => resp.json())
+      .then((data) => setTemporadas(data))
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   }, [id]);
@@ -71,7 +77,7 @@ export default () => {
       ...formulario,
     };
     console.log(credenciales);
-    fetch(API_URL + "/activitats/" + id, {
+    fetch(API_URL + "/actividades/" + id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -85,12 +91,13 @@ export default () => {
           console.log(data.error);
         } else {
           console.log(data);
-          redirect("/Home");
+          redirect("/PuntInteres/" + idPunt);
         }
       });
   };
   const updatePosition = (lat, lon) => {
     setCurrentPosition({ lat, lon });
+    setFormulario({ ...formulario, latitud: lat, longitud: lon });
   };
   if (loading) {
     return <div>Cargando...</div>;
@@ -186,29 +193,15 @@ export default () => {
               </select>
             </div>
             <div className="flex flex-col md:flex-row justify-between">
-              <h2 className="text-xl font-medium mb-2 md:mb-0">Latitud</h2>
-              <input
-                type="text"
-                name="latitud"
-                value={formulario.latitud}
-                onChange={(e) =>
-                  setFormulario({ ...formulario, latitud: e.target.value })
-                }
-              />
+              {currentPosition.lon && currentPosition.lat && activitat ? (
+                <MapSearchMyLocation
+                  currentPosition={currentPosition}
+                  updatePosition={updatePosition}
+                />
+              ) : null}
             </div>
             <div className="flex flex-col md:flex-row justify-between">
-              <h2 className="text-xl font-medium mb-2 md:mb-0">Longitud</h2>
-              <input
-                type="text"
-                name="longitud"
-                value={formulario.longitud}
-                onChange={(e) =>
-                  setFormulario({ ...formulario, longitud: e.target.value })
-                }
-              />
-            </div>
-            <div className="flex flex-col md:flex-row justify-between">
-              <h2 className="text-xl font-medium mb-2 md:mb-0">Imagen</h2>
+              {/*<h2 className="text-xl font-medium mb-2 md:mb-0">Imagen</h2>
               <input
                 type="text"
                 name="imagen"
@@ -216,9 +209,26 @@ export default () => {
                 onChange={(e) =>
                   setFormulario({ ...formulario, imagen: e.target.value })
                 }
-              />
+              />*/}
             </div>
           </form>
+          <div className="flex justify-between p-4 bg-gray-100 rounded-lg shadow-md">
+            <button
+              className="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-md"
+              onClick={() => window.history.back()}
+            >
+              Volver
+            </button>
+            <div className="flex space-x-2">
+              <button
+                type="submit"
+                onClick={editarDades}
+                className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white font-semibold rounded-md"
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

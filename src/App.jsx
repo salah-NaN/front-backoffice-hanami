@@ -3,6 +3,7 @@ import { Outlet, Link, useNavigate } from 'react-router-dom'
 import Contexto from "./Contexto"
 import Cookie from "js-cookie"
 import Header from './components/Header'
+import Footer from './components/Footer'
 import './App.css'
 
 const API_URL = 'http://localhost:3000/api';
@@ -10,14 +11,6 @@ const API_URL = 'http://localhost:3000/api';
 
 function App() {
   const redirect = useNavigate();
-  
-
-   const logout = () => {
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // Set the expiration date to a past date
-    setLoguejat(null)
-    window.location.href = "/login";
-  }; 
-
   useEffect(() => {
     if(document.cookie.includes('token')){
       const token = Cookie.get("token")
@@ -39,21 +32,16 @@ function App() {
 
   const [loguejat, setLoguejat] =useState(false)
 
-  const datos = {loguejat, setLoguejat, logout, API_URL}
+  const datos = {loguejat, setLoguejat, API_URL}
 
   return (
     <Contexto.Provider value={datos}>
     <div className='bg-cream-body min-h-screen'>
-    <Header></Header>
-     <div className=' flex flex-row gap-2 '>
-      <Link to="/login" className='rounded-md border'>Login</Link>
-      <Link to="/register" className='rounded-md border'>Register</Link>
-      <button onClick={logout}>Logout</button>
-
-     </div>
+    <Header/> 
      <div className='w-full '>
       <Outlet/>
      </div>
+     <Footer/>
     </div>
     </Contexto.Provider>
   )

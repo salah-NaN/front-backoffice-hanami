@@ -69,8 +69,7 @@ export default () => {
     fetch(`${API_URL}/actividades_punto_interes/${id}`)
       .then((resp) => resp.json())
       .then((data) => {
-        setActividades(data.temporadas[0].actividades);
-        setTemporadas(data.temporadas);
+        setTemporadas(data);
       })
       .catch((err) => console.log(err));
   }, [id]);

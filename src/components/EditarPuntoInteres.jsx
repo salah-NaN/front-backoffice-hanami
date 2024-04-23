@@ -23,7 +23,7 @@ export default function EditarPuntoInteres() {
       .then((resp) => resp.json())
       .then((data) => {
         setPuntoInteres(data);
-        setLoading(false); 
+        setLoading(false);
       });
   }, [id]);
 
@@ -40,7 +40,6 @@ export default function EditarPuntoInteres() {
     longitud: "",
     propietario_id: "",
   });
-  
 
   useEffect(() => {
     setCurrentPosition({
@@ -48,21 +47,24 @@ export default function EditarPuntoInteres() {
       lon: puntoInteres.longitud,
     });
     setFormulario({
-      
       nombre: puntoInteres.nombre,
       descripcion: puntoInteres.descripcion,
       ubicacion: puntoInteres.ubicacion,
-      latitud: puntoInteres.latitud,
-      longitud: puntoInteres.longitud,
       propietario_id: puntoInteres.propietario_id,
-    })
+    });
   }, [puntoInteres]);
 
   const editarDades = (e) => {
     e.preventDefault();
+
+    const latitudCortada = parseFloat(formulario.latitud).toFixed(8);
+    const longitudCortada = parseFloat(formulario.longitud).toFixed(8);
     console.log(formulario);
     const credenciales = {
-      ...formulario
+      ...formulario,
+
+      latitud: latitudCortada,
+      longitud: longitudCortada,
     };
     console.log(credenciales);
     fetch(API_URL + "/puntos_interes/" + id, {
@@ -78,13 +80,14 @@ export default function EditarPuntoInteres() {
           console.log(data.error);
         } else {
           console.log(data);
-          redirect("/Home");
+          redirect("/PuntInteres/" + id);
         }
       });
   };
 
   const updatePosition = (lat, lon) => {
     setCurrentPosition({ lat, lon });
+    setFormulario({ ...formulario, latitud: lat, longitud: lon });
   };
 
   if (loading) {
@@ -152,34 +155,10 @@ export default function EditarPuntoInteres() {
               setFormulario({ ...formulario, poblacion: e.target.value })
             }
           />
-          <label htmlFor="latitud">Latitud: </label>
-          <input
-            type="text"
-            id="latitud"
-            name="latitud"
-            value={currentPosition.latitud}
-            placeholder={puntoInteres.latitud}
-            onChange={(e) =>
-              setFormulario({ ...formulario, latitud: e.target.value })
-            }
-            disabled
-          />
-          <label htmlFor="longitud">Longitud: </label>
-          <input
-            type="text"
-            id="longitud"
-            name="longitud"
-            value={currentPosition.longitud}
-            placeholder={puntoInteres.longitud}
-            onChange={(e) =>
-              setFormulario({ ...formulario, longitud: currentPosition.longitud })
-            }
-            disabled
-          />
-          <br />
+          <label htmlFor="Ubicacion" className="text-xl font-medium mb-2 md:mb-0"> Ubicación: </label>
           {console.log(currentPosition)}
           <div className="">
-            {currentPosition.lon && currentPosition.lat  && puntoInteres ? (
+            {currentPosition.lon && currentPosition.lat && puntoInteres ? (
               <MapSearchMyLocation
                 currentPosition={currentPosition}
                 updatePosition={updatePosition}
