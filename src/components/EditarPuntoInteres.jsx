@@ -8,7 +8,6 @@ export default function EditarPuntoInteres() {
   const { id } = useParams();
   const redirect = useNavigate();
 
-  // Estado para controlar los datos y la carga
   const [loading, setLoading] = useState(true);
   const [puntoInteres, setPuntoInteres] = useState({
     nombre: "",
@@ -24,7 +23,7 @@ export default function EditarPuntoInteres() {
       .then((resp) => resp.json())
       .then((data) => {
         setPuntoInteres(data);
-        setLoading(false); // Marcar como completada la carga
+        setLoading(false); 
       });
   }, [id]);
 
