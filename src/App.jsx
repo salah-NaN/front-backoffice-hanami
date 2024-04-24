@@ -19,12 +19,13 @@ function App() {
         ...payload,
         token:token,
       }
+      console.log(data)
       if (!data.error){
         console.log(data);
         setLoguejat(data)
       }else{
         setLoguejat(false);
-        redirect("/propietarios/login")
+        redirect("/login")
       }
       
     }  

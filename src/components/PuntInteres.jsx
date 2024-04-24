@@ -17,6 +17,10 @@ export default () => {
   const [puntosInteres, setPuntosInteres] = useState({});
   const [temporadas, setTemporadas] = useState([]);
   const [actividades, setActividades] = useState([]);
+  const [flor, setFlor] = useState([]);
+  const arrayFlorId = [];
+  const arrayDatosFlores = [];
+
   const redirect = useNavigate();
   const { id } = useParams();
 
@@ -31,10 +35,32 @@ export default () => {
       .then((temporada) => setTemporadas(temporada))
       .catch((err) => console.log(err));
   }, [id]);
-  console.log(temporadas);
+
+  useEffect(() => {
+    /* if (temporadas.length > 0) {
+      for (let i = 0; i < temporadas.length; i++) {
+        arrayFlorId.push(temporadas[i].flor_id);
+      }
+      const arraySinRepetidos = [...new Set(arrayFlorId)];
+      for (let i = 0; i < arraySinRepetidos.length; i++) {
+        arrayDatosFlores.push(
+          fetch(`${API_URL}/flores/${arraySinRepetidos[i]}`)
+            .then((resp) => resp.json())
+            .catch((err) => console.log(err))
+        );
+      }
+      Promise.all(arrayDatosFlores)
+        .then((data) => {
+          setFlor(data);
+        })
+        .catch((err) => console.log(err));
+    } */
+  }, [temporadas]);
+
   if (
     Object.keys(puntosInteres).length === 0 &&
-    Object.keys(actividades).length === 0
+    Object.keys(actividades).length === 0 &&
+    arrayFlorId.length === 0
   ) {
     return <div className="text-center p-4">Loading...</div>;
   }
@@ -45,7 +71,6 @@ export default () => {
         <div className="flex flex-col space-y-4">
           <h1 className="text-2xl font-semibold text-center">Punto Interes</h1>
           <hr className="my-4" />
-
           <div className="flex flex-col md:flex-row justify-between">
             <h2 className="text-xl font-medium mb-2 md:mb-0">Nombre</h2>
             <h3>{puntosInteres.nombre}</h3>
@@ -141,32 +166,62 @@ export default () => {
                     </MapContainer>
                   </div>
                   <div className="flex justify-center p-4 bg-gray-100 rounded-lg shadow-md">
-                  <button
-                    className="px-4 py-2 bg-green-500 hover:bg-green-700 text-white font-semibold rounded-md"
-                    onClick={() => redirect(`/editarActivitat/`+actividad.id+`/`+id)}
-                  >
-                    Editar
-                  </button>
+                    <button
+                      className="px-4 py-2 bg-green-500 hover:bg-green-700 text-white font-semibold rounded-md"
+                      onClick={() =>
+                        redirect(`/editarActivitat/` + actividad.id + `/` + id)
+                      }
+                    >
+                      Editar
+                    </button>
                   </div>
                 </div>
               ))
             )}
           </div>
         </div>
-        <div className="flex justify-between p-4 bg-gray-100 rounded-lg shadow-md">
-          <button
-            className="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-md"
-            onClick={() => window.history.back()}
-          >
-            Volver
-          </button>
+        <div className="flex justify-center p-4 bg-gray-100 rounded-lg shadow-md">
           <div className="flex space-x-2">
             <button
               className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white font-semibold rounded-md"
-              onClick={() => (window.location.href = "/afegirActivitat/" + id)}
+              onClick={() => redirect("/afegirActivitat/") + id}
             >
               Crear Actividad
             </button>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col min-h-screen bg-gray-100">
+        <div className="flex flex-col justify-between p-4 bg-white rounded-lg shadow-md">
+          <div className="flex flex-col space-y-4">
+            <h1 className="text-2xl font-semibold text-center">Flores</h1>
+            <hr className="my-4" />
+            {console.log(flor)}
+            {flor.length > 0 ? (
+              flor.map(
+                (f) => (
+                  console.log("Estas dentro"),
+                  (
+                    <div key={f.id}>
+                      <div className="flex flex-col md:flex-row justify-between">
+                        <h2 className="text-xl font-medium mb-2 md:mb-0">
+                          Nombre
+                        </h2>
+                        <h3>{f.especie}</h3>
+                      </div>
+                      <div className="flex flex-col md:flex-row justify-between">
+                        <h2 className="text-xl font-medium mb-2 md:mb-0">
+                          Descripción
+                        </h2>
+                        <h3>{f.descripcion}</h3>
+                      </div>
+                    </div>
+                  )
+                )
+              )
+            ) : (
+              <p>Los datos de las flores están cargando...</p>
+            )}
           </div>
         </div>
       </div>
