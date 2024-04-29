@@ -52,12 +52,20 @@ export default () => {
   };
 
   return (
-    <div>
-      <div className="flex flex-row grid-2 items-center w-full h-16 justify-between p-4 bg-cream-header border-b border-header-border">
-        <h1>Mi perfil</h1>
-        <button onClick={() => redirect("/Home")}>Volver</button>
+    <div className="container mx-auto px-4 dark:bg-gray-800 dark:text-white">
+      <div className="flex flex-row grid-2 items-center w-full h-16 justify-between p-4 ">
+        <h1 className="text-xl font-bold">Mi perfil</h1>
+        <button
+          onClick={() => redirect("/Home")}
+          className="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-md"
+        >
+          Volver
+        </button>
       </div>
-      <div className="flex flex-col justify-between w-full h-full p-4 bg-cream-header border-b border-header-border">
+      <div className="flex flex-col justify-between w-full h-full p-4">
+      <h1 className="text-xl font-bold">Datos personales</h1>
+        <hr className="my-4" />
+
         <p>
           Nombre:{" "}
           {editableField === "nombre" ? (
@@ -66,6 +74,7 @@ export default () => {
                 type="text"
                 value={propietario.nombre}
                 onChange={(e) => handleFieldChange(e, "nombre")}
+                className="border border-gray-300 rounded-md px-2 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
               <SaveIcon onClick={() => handleFieldSave("nombre")} />
             </>
@@ -84,6 +93,8 @@ export default () => {
                 type="text"
                 value={propietario.apellidos}
                 onChange={(e) => handleFieldChange(e, "apellidos")}
+                className="border border-gray-300 rounded-md px-2 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+
               />
               <SaveIcon onClick={() => handleFieldSave("apellidos")} />
             </>
@@ -102,6 +113,8 @@ export default () => {
                 type="text"
                 value={propietario.email}
                 onChange={(e) => handleFieldChange(e, "email")}
+                className="border border-gray-300 rounded-md px-2 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+
               />
               <SaveIcon onClick={() => handleFieldSave("email")} />
             </>
@@ -120,20 +133,18 @@ export default () => {
                 type="text"
                 value={propietario.password}
                 onChange={(e) => handleFieldChange(e, "password")}
+                className="border border-gray-300 rounded-md px-2 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+
               />
               <SaveIcon onClick={() => handleFieldSave("password")} />
             </>
           ) : (
             <>
-              {'*****'}
+              {"*****"}
               <EditIcon onClick={() => handleFieldEdit("password")} />
             </>
           )}
         </p>
-
-        {/* Seccion documentacion*/}
-      </div>
-      <div className="flex flex-col p-4 bg-cream-header border-b border-header-border">
         <p>
           tipo documento:{" "}
           {editableField === "tipo_documento" ? (
@@ -163,6 +174,8 @@ export default () => {
                 type="text"
                 value={propietario.num_doc}
                 onChange={(e) => handleFieldChange(e, "num_doc")}
+                className="border border-gray-300 rounded-md px-2 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+
               />
               <SaveIcon onClick={() => handleFieldSave("num_doc")} />
             </>
@@ -173,6 +186,13 @@ export default () => {
             </>
           )}
         </p>
+
+        {/* Seccion documentacion*/}
+      </div>
+      <div className="flex flex-col p-4">
+      <h1 className="text-xl font-bold">Datos de contacto</h1>
+        <hr className="my-4" />
+        
         <p>
           telefono:{" "}
           {editableField === "telefono" ? (
@@ -181,6 +201,8 @@ export default () => {
                 type="text"
                 value={propietario.telefono}
                 onChange={(e) => handleFieldChange(e, "telefono")}
+                className="border border-gray-300 rounded-md px-2 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+
               />
               <SaveIcon onClick={() => handleFieldSave("telefono")} />
             </>
@@ -200,6 +222,8 @@ export default () => {
                 type="text"
                 value={propietario.entidad}
                 onChange={(e) => handleFieldChange(e, "entidad")}
+                className="border border-gray-300 rounded-md px-2 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+
               />
               <SaveIcon onClick={() => handleFieldSave("entidad")} />
             </>
@@ -213,7 +237,9 @@ export default () => {
 
         {/* Seccion ubicacion*/}
       </div>
-      <div className="flex flex-col p-4 bg-cream-header border-b border-header-border">
+      <div className="flex flex-col p-4">
+      <h1 className="text-xl font-bold">Ubicación</h1>
+        <hr className="my-4" />
         <p>
           latitud:{" "}
           {editableField === "latitud" ? (
@@ -222,13 +248,15 @@ export default () => {
                 type="text"
                 value={propietario.latitud}
                 onChange={(e) => handleFieldChange(e, "latitud")}
+                className="border border-gray-300 rounded-md px-2 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+
               />
               <SaveIcon onClick={() => handleFieldSave("latitud")} />
             </>
           ) : (
             <>
               {propietario.latitud}
-              <EditIcon onClick={() => handleFieldEdit("latitud")} />  
+              <EditIcon onClick={() => handleFieldEdit("latitud")} />
             </>
           )}
         </p>
@@ -240,13 +268,15 @@ export default () => {
                 type="text"
                 value={propietario.longitud}
                 onChange={(e) => handleFieldChange(e, "longitud")}
+                className="border border-gray-300 rounded-md px-2 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+
               />
               <SaveIcon onClick={() => handleFieldSave("longitud")} />
             </>
           ) : (
             <>
               {propietario.longitud}
-              
+
               <EditIcon onClick={() => handleFieldEdit("longitud")} />
             </>
           )}
@@ -259,6 +289,8 @@ export default () => {
                 type="text"
                 value={propietario.ubicacion}
                 onChange={(e) => handleFieldChange(e, "ubicacion")}
+                className="border border-gray-300 rounded-md px-2 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+
               />
               <SaveIcon onClick={() => handleFieldSave("ubicacion")} />
             </>
@@ -277,6 +309,8 @@ export default () => {
                 type="text"
                 value={propietario.poblacion}
                 onChange={(e) => handleFieldChange(e, "poblacion")}
+                className="border border-gray-300 rounded-md px-2 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+
               />
               <SaveIcon onClick={() => handleFieldSave("poblacion")} />
             </>
@@ -295,6 +329,8 @@ export default () => {
                 type="text"
                 value={propietario.comarca}
                 onChange={(e) => handleFieldChange(e, "comarca")}
+                className="border border-gray-300 rounded-md px-2 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+
               />
               <SaveIcon onClick={() => handleFieldSave("comarca")} />
             </>

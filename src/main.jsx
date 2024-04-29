@@ -10,6 +10,7 @@ import PuntInteres from "./components/PuntInteres.jsx";
 import EditarPuntoInteres from "./components/EditarPuntoInteres.jsx";
 import AfegirActivitat from "./components/afegirActivitat.jsx";
 import EditarActivitat from "./components/editarActivitat.jsx";
+import DetallePuntoInteres from "./components/DetallePuntoInteres.jsx";
 
 import "./index.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -23,7 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/miperfil" element={<MiPerfil />} />
         <Route path="/home" element={<Home />} />
         <Route path="/afegirPuntInteres" element={<AfegirPuntInteres />} />
-        <Route path="/PuntInteres/:id" element={<PuntInteres />} />
+        <Route path="/PuntInteres/:id" element={<DetallePuntoInteres />} />
         <Route path="/editarPuntInteres/:id" element={<EditarPuntoInteres />} />
         <Route path="/afegirActivitat/:id" element={<AfegirActivitat />} />
         <Route path="/editarActivitat/:id/:idPunt" element={<EditarActivitat />} />

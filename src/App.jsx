@@ -19,9 +19,7 @@ function App() {
         ...payload,
         token:token,
       }
-      console.log(data)
       if (!data.error){
-        console.log(data);
         setLoguejat(data)
       }else{
         setLoguejat(false);
@@ -37,9 +35,9 @@ function App() {
 
   return (
     <Contexto.Provider value={datos}>
-    <div className='bg-cream-body min-h-screen'>
+    <div className='bg-cream-body min-h-screen dark:text-white dark:bg-gray-900'>
     <Header/> 
-     <div className='w-full '>
+     <div className='w-full dark:text-white dark:bg-gray-800 '>
       <Outlet/>
      </div>
      <Footer/>
