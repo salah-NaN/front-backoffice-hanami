@@ -97,8 +97,8 @@ export default function EditarPuntoInteres() {
   return (
     <div>
       <h1>Editar Punto Interes</h1>
-      <div className="flex flex-col justify-between p-4 bg-white rounded-lg shadow-md">
-        <form className="flex flex-col space-y-4" onSubmit={editarDades}>
+      <div className="flex flex-col justify-between p-4 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
+        <form className="flex flex-col space-y-4 dark:text-white dark:bg-gray-800" onSubmit={editarDades} >
           <label htmlFor="nombre">Nombre: </label>
           <input
             type="text"

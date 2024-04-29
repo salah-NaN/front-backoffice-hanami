@@ -3,10 +3,15 @@ import { useParams, Link } from "react-router-dom";
 import PuntoInteres from "./PuntInteres";
 import Actividad from "./Activitats";
 import Flor from "./Flor";
+import { redirect, useNavigate } from "react-router-dom";
+
 
 const API_URL = "http://localhost:3000/api";
 
 const DetallePuntoInteres = () => {
+
+  const redirect = useNavigate();
+
   const { id } = useParams();
   const [puntosInteres, setPuntosInteres] = useState({});
   const [actividades, setActividades] = useState([]);
@@ -52,12 +57,12 @@ const DetallePuntoInteres = () => {
     <div className="detalle-punto-interes">
       <PuntoInteres puntosInteres={puntosInteres} />
       <div className="flex justify-center p-4 bg-gray-100 rounded-lg shadow-md">
-          <Link to={`/afegirActivitat/${id}`} className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white font-semibold rounded-md">Crear Actividad</Link>
+          <Link to={`/editarPuntInteres/${id}`} className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white font-semibold rounded-md">Editar</Link>
         </div>
       <div className="actividades">
         <h1 className="text-2xl font-semibold text-center">Actividades</h1>
         {actividades.map((actividad) => (
-          <Actividad key={actividad.id} actividad={actividad} />
+          <Actividad key={actividad.id} actividad={actividad} idPuntInteres={id} />
         ))}
         <div className="flex justify-center p-4 bg-gray-100 rounded-lg shadow-md">
           <Link to={`/afegirActivitat/${id}`} className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white font-semibold rounded-md">Crear Actividad</Link>

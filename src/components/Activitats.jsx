@@ -3,6 +3,9 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import L from "leaflet";
 import iconLocation from "/icon-location.png";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { redirect, useNavigate } from "react-router-dom";
+
 
 
 const customIcon = L.icon({
@@ -11,7 +14,8 @@ const customIcon = L.icon({
   iconUrl: iconLocation,
 });
 
-const Actividad = ({ actividad }) => {
+const Actividad = ({ actividad, idPuntInteres }) => {
+  const redirect = useNavigate();
   return (
     <div className="actividad">
       {/* Renderizar datos de la actividad */}
@@ -66,6 +70,8 @@ const Actividad = ({ actividad }) => {
           ))}
         </div>
         <DeleteIcon onClick={() => redirect(`/borrar_actividad/${actividad.id}`)}/>
+        <EditIcon onClick={() => redirect(`/editarActivitat/${actividad.id}/${idPuntInteres}`)}/>
+
       </div>
     </div>
   );

@@ -104,15 +104,15 @@ export default () => {
   }
 
   return (
-    <div className="text-center p-4">
+    <div className="text-center p-4 dark:bg-gray-800 dark:text-white">
       <h1>Afegir activitat al punto interes {puntosInteres.nombre} </h1>
       <hr className="my-4" />
-      <div className="flex flex-col justify-between p-4 bg-white rounded-lg shadow-md">
+      <div className="flex flex-col justify-between p-4 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
         <form className="flex flex-col space-y-4" onSubmit={(e) => e.onSubmitForm()}>
           <label htmlFor="temporada">Temporada</label>
           <hr className="my-4" />
 
-          <select name="temporada" id="temporada" onInput={(e) => setFormulario({ ...formulario, temporada_id: e.target.value })}>
+          <select name="temporada" className="dark:text-black" id="temporada" onInput={(e) => setFormulario({ ...formulario, temporada_id: e.target.value })}>
             <option value="null">Selecciona una temporada</option>
             {temporadas.map((temporada) => (
               <option key={temporada.id} value={temporada.id}>
@@ -123,14 +123,14 @@ export default () => {
           <br/>
           <label htmlFor="actividad">Actividad</label>
           <hr className="my-4" />
-          <label htmlFor="nombre" className="text-left">
+          <label htmlFor="nombre">
             Nombre
           </label>
-          <input type="text" name="nombre" id="nombre" onInput={(e) => setFormulario({ ...formulario, nombre: e.target.value })} />
-          <label htmlFor="categoria" className="text-left">
+          <input className="dark:text-black" type="text" name="nombre" id="nombre" onInput={(e) => setFormulario({ ...formulario, nombre: e.target.value })} />
+          <label htmlFor="categoria" >
             Categoria
           </label>
-          <select name="categoria" id="categoria" onInput={(e) => setFormulario({ ...formulario, categoria: e.target.value })}>
+          <select name="categoria" className="dark:text-black" id="categoria" onInput={(e) => setFormulario({ ...formulario, categoria: e.target.value })}>
             <option value="null">Selecciona una categoria</option>
             <option value="Bici">Bici</option>
             <option value="Senderismo">Senderismo</option>
@@ -140,7 +140,7 @@ export default () => {
           <label htmlFor="descripcion" className="text-left">
             Descripción
           </label>
-          <input type="text" name="descripcion" id="descripcion" onInput={(e) => setFormulario({ ...formulario, descripcion: e.target.value })}/>
+          <input type="text" className="dark:text-black" name="descripcion" id="descripcion" onInput={(e) => setFormulario({ ...formulario, descripcion: e.target.value })}/>
           <div className="">
               {currentPosition.lat && currentPosition.lon ? (
                 <MapSearchMyLocation
@@ -152,15 +152,15 @@ export default () => {
           <label htmlFor="ubicacion" className="text-left">
             Calle
           </label>
-          <input type="text" name="ubicacion" id="ubicacion" onInput={(e) => setFormulario({ ...formulario, ubicacion: e.target.value })}/>
+          <input className="dark:text-black" type="text" name="ubicacion" id="ubicacion" onInput={(e) => setFormulario({ ...formulario, ubicacion: e.target.value })}/>
           <label htmlFor="poblacion" className="text-left">
             Población
           </label>
-          <input type="text" name="poblacion" id="poblacion" onInput={(e) => setFormulario({ ...formulario, poblacion: e.target.value })} />
+          <input className="dark:text-black" type="text" name="poblacion" id="poblacion" onInput={(e) => setFormulario({ ...formulario, poblacion: e.target.value })} />
           <label htmlFor="comarca" className="text-left">
             Comarca
           </label>
-          <input type="text" name="comarca" id="comarca" onInput={(e) => setFormulario({ ...formulario, comarca: e.target.value })} />
+          <input className="dark:text-black" type="text" name="comarca" id="comarca" onInput={(e) => setFormulario({ ...formulario, comarca: e.target.value })} />
           <p onClick={onSubmitForm}>Enviar</p>
 
           <button onClick={() => redirect(`/PuntInteres/${id}`)}>Cancelar</button>

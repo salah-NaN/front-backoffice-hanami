@@ -93,9 +93,10 @@ export const CrearPuntoInteres = () => {
   };
 
   return (
-    <div className="bg-sky-200 w-full h-full">
+    <div className="w-full h-full dark:bg-gray-800 dark:text-white">
+      <br/>
       {propietario_id ? (
-        <div className="bg-sky-200 w-full h-full">
+        <div className="dark:bg-gray-800 dark:text-white w-full h-full">
           <div className="flex justify-center items-center h-full">
             <form onSubmit={onSubmitForm}>
               <h1 className="text-white">Añade un punto de interes.</h1>
@@ -195,9 +196,9 @@ export const CrearPuntoInteres = () => {
                 />
               ) : null}
             </div>
-            <div className="">
+            <div className=" flex justify-center items-center py-6">
               {console.log(formulario)}
-              <p onClick={onSubmitForm}>Enviar</p>
+              <button className="py-2 px-4 bg-indigo-500 hover:bg-indigo-700 text-white font-semibold rounded-md" onClick={onSubmitForm}>Enviar</button>
             </div>
             </form>
           </div>
@@ -205,6 +206,7 @@ export const CrearPuntoInteres = () => {
       ) : (
         <h1>Cargando data</h1>
       )}
+
     </div>
   );
 };

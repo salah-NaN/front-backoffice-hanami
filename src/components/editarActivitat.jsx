@@ -105,14 +105,15 @@ export default () => {
   return (
     <div>
       <h1>Editar Activitat</h1>
-      <div className="flex flex-col justify-between p-4 bg-white rounded-lg shadow-md">
+      <div className="flex flex-col p-4 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
         <div className="flex flex-col space-y-4">
           <h1 className="text-2xl font-semibold text-center">Actividad</h1>
           <hr className="my-4" />
-          <form onSubmit={editarDades}>
-            <div className="flex flex-col md:flex-row justify-between">
+          <form onSubmit={editarDades} className="dark:bg-gray-800 dark:text-white">
+            <div className="flex flex-col md:flex-row ">
               <h2 className="text-xl font-medium mb-2 md:mb-0">Nombre</h2>
               <input
+                className="dark:bg-gray-600 dark:text-white"
                 type="text"
                 name="nombre"
                 value={formulario.nombre}
@@ -121,10 +122,12 @@ export default () => {
                 }
               />
             </div>
-            <div className="flex flex-col md:flex-row justify-between">
+            <div className="flex flex-col md:flex-row">
               <h2 className="text-xl font-medium mb-2 md:mb-0">Categoría</h2>
               <input
                 type="text"
+                className="dark:bg-gray-600 dark:text-white"
+
                 name="categoria"
                 value={formulario.categoria}
                 onChange={(e) =>
@@ -132,10 +135,11 @@ export default () => {
                 }
               />
             </div>
-            <div className="flex flex-col md:flex-row justify-between">
+            <div className="flex flex-col md:flex-row">
               <h2 className="text-xl font-medium mb-2 md:mb-0">Descripción</h2>
               <input
                 type="text"
+                className="dark:bg-gray-600 dark:text-white"
                 name="descripcion"
                 value={formulario.descripcion}
                 onChange={(e) =>
@@ -143,10 +147,11 @@ export default () => {
                 }
               />
             </div>
-            <div className="flex flex-col md:flex-row justify-between">
+            <div className="flex flex-col md:flex-row">
               <h2 className="text-xl font-medium mb-2 md:mb-0">Ubicación</h2>
               <input
                 type="text"
+                className="dark:bg-gray-600 dark:text-white"
                 name="ubicacion"
                 value={formulario.ubicacion}
                 onChange={(e) =>
@@ -154,10 +159,11 @@ export default () => {
                 }
               />
             </div>
-            <div className="flex flex-col md:flex-row justify-between">
+            <div className="flex flex-col md:flex-row">
               <h2 className="text-xl font-medium mb-2 md:mb-0">Población</h2>
               <input
                 type="text"
+                className="dark:bg-gray-600 dark:text-white"
                 name="poblacion"
                 value={formulario.poblacion}
                 onChange={(e) =>
@@ -165,10 +171,11 @@ export default () => {
                 }
               />
             </div>
-            <div className="flex flex-col md:flex-row justify-between">
+            <div className="flex flex-col md:flex-row">
               <h2 className="text-xl font-medium mb-2 md:mb-0">Comarca</h2>
               <input
                 type="text"
+                className="dark:bg-gray-600 dark:text-white"
                 name="comarca"
                 value={formulario.comarca}
                 onChange={(e) =>
@@ -176,9 +183,10 @@ export default () => {
                 }
               />
             </div>
-            <div className="flex flex-col md:flex-row justify-between">
+            <div className="flex flex-col md:flex-row">
               <h2 className="text-xl font-medium mb-2 md:mb-0">Temporada</h2>
               <select
+                className="dark:bg-gray-600 dark:text-white"
                 name="temporada_id"
                 value={formulario.temporada_id}
                 onChange={(e) =>
@@ -192,7 +200,7 @@ export default () => {
                 ))}
               </select>
             </div>
-            <div className="flex flex-col md:flex-row justify-between">
+            <div className="flex flex-col md:flex-row">
               {currentPosition.lon && currentPosition.lat && activitat ? (
                 <MapSearchMyLocation
                   currentPosition={currentPosition}
@@ -200,7 +208,7 @@ export default () => {
                 />
               ) : null}
             </div>
-            <div className="flex flex-col md:flex-row justify-between">
+            <div className="flex flex-col md:flex-row ">
               {/*<h2 className="text-xl font-medium mb-2 md:mb-0">Imagen</h2>
               <input
                 type="text"
@@ -212,7 +220,7 @@ export default () => {
               />*/}
             </div>
           </form>
-          <div className="flex justify-between p-4 bg-gray-100 rounded-lg shadow-md">
+          <div className="flex p-4 bg-gray-100 rounded-lg shadow-md">
             <button
               className="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-md"
               onClick={() => window.history.back()}
