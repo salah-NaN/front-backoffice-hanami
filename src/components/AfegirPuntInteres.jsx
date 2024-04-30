@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { MapSearchMyLocation } from "./MapSearchMyLocation";
 import { useContext } from "react";
 import Contexto from "../Contexto";
+import { redirect } from "react-router-dom";
 
 export const CrearPuntoInteres = () => {
   const API_URL = "http://localhost:3000/api";
@@ -26,9 +27,29 @@ export const CrearPuntoInteres = () => {
     comarca: "",
     propietario_id: propietario_id,
   });
+  
 
   const subirImagen = (puntoInteresId) => {
     console.log(puntoInteresId);
+    const formData = new FormData();
+    const file = imagen[0]; // Assuming you're uploading a single image
+    formData.append("imagen", file);
+
+    // Extracting name and type from the file
+    const nombre = file.name.split(".")[0];
+    const tipo = file.name.split(".")[1];
+
+    formData.append("nombre", nombre); // Add the name
+    formData.append("tipo", tipo); // Add the type
+    formData.append("idPuntoInteres", puntoInteresId); // Add the point of interest ID
+
+    fetch(`${API_URL}/puntos_interes/img/${puntoInteresId}`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((resp) => resp.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
   };
 
   useEffect(() => {
@@ -76,22 +97,23 @@ export const CrearPuntoInteres = () => {
     e.preventDefault();
     try {
       // Crear un objeto FormData para enviar la imagen
-      const formData = new FormData();
-      formData.append("nombre", formulario.nombre);
-      formData.append("descripcion", formulario.descripcion);
-      formData.append("latitud", formulario.latitud);
-      formData.append("longitud", formulario.longitud);
-      formData.append("ubicacion", formulario.ubicacion);
-      formData.append("poblacion", formulario.poblacion);
-      formData.append("comarca", formulario.comarca);
-      formData.append("propietario_id", formulario.propietario_id);
-      formData.append("imagen", imagen); // Adjuntar la imagen al FormData
+      const credenciales = {
+        ...formulario,
+
+        latitud: currentPosition.lat,
+        longitud: currentPosition.lon,
+      };
+      const opciones = {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credenciales),
+      };
 
       // Enviar los datos al servidor
-      const response = await fetch(`${API_URL}/puntos_interes`, {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(`${API_URL}/puntos_interes`, opciones);
       const data = await response.json();
       if (data.error) {
         console.error(data.error);
@@ -100,6 +122,7 @@ export const CrearPuntoInteres = () => {
         console.log("Punto de interés creado:", data);
         // Subir la imagen después de crear el punto de interés
         subirImagen(data.id);
+        redirect("/PuntInteres/" + data.id);
       }
     } catch (error) {
       console.error("Error al enviar los datos:", error);
@@ -219,7 +242,7 @@ export const CrearPuntoInteres = () => {
                   type="file"
                   name="imagen"
                   className="border border-black"
-                  onChange={(e) => setImagen(e.target.files[0])}
+                  onChange={(e) => setImagen(e.target.files)}
                 />
               </div>
               <div className=" flex justify-center items-center py-6">

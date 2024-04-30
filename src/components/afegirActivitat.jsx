@@ -47,6 +47,7 @@ export default () => {
   const [puntosInteres, setPuntosInteres] = useState({});
   const [actividades, setActividades] = useState([]);
   const [temporadas, setTemporadas] = useState([]);
+  const [imagen, setImagen] = useState([]);
   const [formulario, setFormulario] = useState({
     nombre: "",
     categoria: "",
@@ -57,8 +58,7 @@ export default () => {
     poblacion: "",
     comarca: "",
     temporada_id: "",
-
-  })
+  });
 
   useEffect(() => {
     fetch(`${API_URL}/puntos_interes/${id}`)
@@ -74,11 +74,33 @@ export default () => {
       .catch((err) => console.log(err));
   }, [id]);
 
+  const subirImagen = (actividad_id) => {
+    const formData = new FormData();
+    const file = imagen[0]; // Assuming you're uploading a single image
+    formData.append("imagen", file);
+
+    // Extracting name and type from the file
+    const nombre = file.name.split(".")[0];
+    const tipo = file.name.split(".")[1];
+
+    formData.append("nombre", nombre); // Add the name
+    formData.append("tipo", tipo); // Add the type
+    formData.append("idActividad", actividad_id); // Add the point of interest ID
+
+    fetch(`${API_URL}/actividades/img/${actividad_id}`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((resp) => resp.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
+  };
+
   const onSubmitForm = (e) => {
     e.preventDefault();
     const credenciales = {
       ...formulario,
-      
+
       latitud: currentPosition.lat,
       longitud: currentPosition.lon,
     };
@@ -98,21 +120,32 @@ export default () => {
           console.log(data.error);
         } else {
           console.log(data);
-          redirect("/PuntInteres/"+id);
+          subirImagen(data.id);
+          //redirect("/PuntInteres/" + id);
         }
-      }) 
-  }
+      });
+  };
 
   return (
     <div className="text-center p-4 dark:bg-gray-800 dark:text-white">
       <h1>Afegir activitat al punto interes {puntosInteres.nombre} </h1>
       <hr className="my-4" />
       <div className="flex flex-col justify-between p-4 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
-        <form className="flex flex-col space-y-4" onSubmit={(e) => e.onSubmitForm()}>
+        <form
+          className="flex flex-col space-y-4"
+          onSubmit={(e) => e.onSubmitForm()}
+        >
           <label htmlFor="temporada">Temporada</label>
           <hr className="my-4" />
 
-          <select name="temporada" className="dark:text-black" id="temporada" onInput={(e) => setFormulario({ ...formulario, temporada_id: e.target.value })}>
+          <select
+            name="temporada"
+            className="dark:text-black"
+            id="temporada"
+            onInput={(e) =>
+              setFormulario({ ...formulario, temporada_id: e.target.value })
+            }
+          >
             <option value="null">Selecciona una temporada</option>
             {temporadas.map((temporada) => (
               <option key={temporada.id} value={temporada.id}>
@@ -120,17 +153,28 @@ export default () => {
               </option>
             ))}
           </select>
-          <br/>
+          <br />
           <label htmlFor="actividad">Actividad</label>
           <hr className="my-4" />
-          <label htmlFor="nombre">
-            Nombre
-          </label>
-          <input className="dark:text-black" type="text" name="nombre" id="nombre" onInput={(e) => setFormulario({ ...formulario, nombre: e.target.value })} />
-          <label htmlFor="categoria" >
-            Categoria
-          </label>
-          <select name="categoria" className="dark:text-black" id="categoria" onInput={(e) => setFormulario({ ...formulario, categoria: e.target.value })}>
+          <label htmlFor="nombre">Nombre</label>
+          <input
+            className="dark:text-black"
+            type="text"
+            name="nombre"
+            id="nombre"
+            onInput={(e) =>
+              setFormulario({ ...formulario, nombre: e.target.value })
+            }
+          />
+          <label htmlFor="categoria">Categoria</label>
+          <select
+            name="categoria"
+            className="dark:text-black"
+            id="categoria"
+            onInput={(e) =>
+              setFormulario({ ...formulario, categoria: e.target.value })
+            }
+          >
             <option value="null">Selecciona una categoria</option>
             <option value="Bici">Bici</option>
             <option value="Senderismo">Senderismo</option>
@@ -140,30 +184,73 @@ export default () => {
           <label htmlFor="descripcion" className="text-left">
             Descripción
           </label>
-          <input type="text" className="dark:text-black" name="descripcion" id="descripcion" onInput={(e) => setFormulario({ ...formulario, descripcion: e.target.value })}/>
+          <input
+            type="text"
+            className="dark:text-black"
+            name="descripcion"
+            id="descripcion"
+            onInput={(e) =>
+              setFormulario({ ...formulario, descripcion: e.target.value })
+            }
+          />
           <div className="">
-              {currentPosition.lat && currentPosition.lon ? (
-                <MapSearchMyLocation
-                  currentPosition={currentPosition}
-                  updatePosition={updatePosition}
-                />
-              ) : null}
-            </div>
+            {currentPosition.lat && currentPosition.lon ? (
+              <MapSearchMyLocation
+                currentPosition={currentPosition}
+                updatePosition={updatePosition}
+              />
+            ) : null}
+          </div>
           <label htmlFor="ubicacion" className="text-left">
             Calle
           </label>
-          <input className="dark:text-black" type="text" name="ubicacion" id="ubicacion" onInput={(e) => setFormulario({ ...formulario, ubicacion: e.target.value })}/>
+          <input
+            className="dark:text-black"
+            type="text"
+            name="ubicacion"
+            id="ubicacion"
+            onInput={(e) =>
+              setFormulario({ ...formulario, ubicacion: e.target.value })
+            }
+          />
           <label htmlFor="poblacion" className="text-left">
             Población
           </label>
-          <input className="dark:text-black" type="text" name="poblacion" id="poblacion" onInput={(e) => setFormulario({ ...formulario, poblacion: e.target.value })} />
+          <input
+            className="dark:text-black"
+            type="text"
+            name="poblacion"
+            id="poblacion"
+            onInput={(e) =>
+              setFormulario({ ...formulario, poblacion: e.target.value })
+            }
+          />
           <label htmlFor="comarca" className="text-left">
             Comarca
           </label>
-          <input className="dark:text-black" type="text" name="comarca" id="comarca" onInput={(e) => setFormulario({ ...formulario, comarca: e.target.value })} />
+          <input
+            className="dark:text-black"
+            type="text"
+            name="comarca"
+            id="comarca"
+            onInput={(e) =>
+              setFormulario({ ...formulario, comarca: e.target.value })
+            }
+          />
+          <div className="py-2">
+            <input
+              accept="image/*"
+              type="file"
+              name="imagen"
+              className="border border-black"
+              onChange={(e) => setImagen(e.target.files)}
+            />
+          </div>
           <p onClick={onSubmitForm}>Enviar</p>
 
-          <button onClick={() => redirect(`/PuntInteres/${id}`)}>Cancelar</button>
+          <button onClick={() => redirect(`/PuntInteres/${id}`)}>
+            Cancelar
+          </button>
         </form>
       </div>
     </div>
