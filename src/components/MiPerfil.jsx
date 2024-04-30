@@ -6,7 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 
 export default () => {
-  const API_URL = "http://localhost:3000/api";
+  const API_URL = "/api";
   const redirect = useNavigate();
   const { loguejat } = useContext(Contexto);
   const [propietario, setPropietario] = useState({});

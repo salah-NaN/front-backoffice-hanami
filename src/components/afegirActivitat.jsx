@@ -5,7 +5,7 @@ import MapSearchMyLocation from "./MapSearchMyLocation";
 
 export default () => {
   const { id } = useParams();
-  const API_URL = "http://localhost:3000/api";
+  const API_URL = "/api";
   const redirect = useNavigate();
   const updatePosition = (lat, lon) => {
     setCurrentPosition({ lat, lon });

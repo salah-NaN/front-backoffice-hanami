@@ -7,7 +7,7 @@ import icon from "./iconLeaflet/constnats.jsx";
 import './marker.css';
 
 export default () => {
-  const API_URL = "http://localhost:3000/api";
+  const API_URL = "/api";
   const [points, setPoints] = useState({});
   const loguejat = useContext(Contexto);
   const { id } = useParams();

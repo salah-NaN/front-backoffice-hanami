@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import Contexto from "../Contexto";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = "/api";
 
 
 export default () => {

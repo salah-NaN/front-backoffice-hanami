@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import Contexto from "../Contexto";
 export default function EditarPuntoInteres() {
-  const API_URL = "http://localhost:3000/api";
+  const API_URL = "/api";
   const { id } = useParams();
   const redirect = useNavigate();
 

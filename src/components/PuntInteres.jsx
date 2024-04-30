@@ -13,7 +13,7 @@ const customIcon = L.icon({
 });
 
 export default () => {
-  const API_URL = "http://localhost:3000/api";
+  const API_URL = "/api";
   const [puntosInteres, setPuntosInteres] = useState({});
   const [temporadas, setTemporadas] = useState([]);
   const [actividades, setActividades] = useState([]);

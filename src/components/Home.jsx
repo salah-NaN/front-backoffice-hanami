@@ -3,7 +3,7 @@ import { redirect, useNavigate } from "react-router-dom";
 import Contexto from "../Contexto";
 import Cookie from "js-cookie";
 
-const API_URL = "http://localhost:3000/api/";
+const API_URL = "/api/";
 
 export default function PointsOfInterest() {
   const redirect = useNavigate();

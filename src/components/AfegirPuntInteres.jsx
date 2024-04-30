@@ -4,7 +4,7 @@ import { useContext } from "react";
 import Contexto from "../Contexto";
 
 export const CrearPuntoInteres = () => {
-  const API_URL = "http://localhost:3000/api";
+  const API_URL = "/api";
   const { loguejat } = useContext(Contexto);
   const propietario_id = loguejat?.propietario_id;
 

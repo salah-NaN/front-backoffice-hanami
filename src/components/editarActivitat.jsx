@@ -6,7 +6,7 @@ import Contexto from "../Contexto";
 
 export default () => {
   const { id, idPunt } = useParams();
-  const API_URL = "http://localhost:3000/api";
+  const API_URL = "/api";
   const redirect = useNavigate();
   const { loguejat } = useContext(Contexto);
   if (!loguejat) {
