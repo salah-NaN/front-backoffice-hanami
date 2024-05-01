@@ -25,6 +25,7 @@ export const CrearPuntoInteres = () => {
     ubicacion: "",
     poblacion: "",
     comarca: "",
+    provincia: "",
     propietario_id: propietario_id,
   });
   
@@ -203,6 +204,7 @@ export const CrearPuntoInteres = () => {
                   }
                 ></input>
               </div>
+              
               <div className="py-2">
                 <input
                   type="text"
@@ -225,6 +227,20 @@ export const CrearPuntoInteres = () => {
                   className="border border-black"
                   onInput={(e) =>
                     setFormulario({ ...formulario, comarca: e.target.value })
+                  }
+                ></input>
+              </div>
+              <div className="py-2">
+                <input
+                  type="text"
+                  name="provincia"
+                  placeholder="provincia"
+                  className="border border-black"
+                  onInput={(e) =>
+                    setFormulario({
+                      ...formulario,
+                      provincia: e.target.value,
+                    })
                   }
                 ></input>
               </div>
