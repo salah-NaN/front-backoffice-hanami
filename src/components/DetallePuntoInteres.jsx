@@ -25,6 +25,7 @@ const DetallePuntoInteres = () => {
         setActividades(data.temporadas.map((temporada) => temporada.actividades).flat());
       })
       .catch((err) => console.log(err));
+
   }, [id]);
 
   useEffect(() => {
@@ -56,14 +57,16 @@ const DetallePuntoInteres = () => {
   return (
     <div className="detalle-punto-interes">
       <PuntoInteres puntosInteres={puntosInteres} />
-      <div className="flex justify-center p-4 bg-gray-100 rounded-lg shadow-md">
+      <div className="flex justify-center p-4 bg-gray-100 rounded-lg shadow-md dark:bg-gray-800">
           <Link to={`/editarPuntInteres/${id}`} className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white font-semibold rounded-md">Editar</Link>
         </div>
+      <hr className="w-full my-8 border-gray-200 " />
       <div className="actividades">
         <h1 className="text-2xl font-semibold text-center">Actividades</h1>
         {actividades.map((actividad) => (
-          <Actividad key={actividad.id} actividad={actividad} idPuntInteres={id} />
+          <Actividad key={actividad.id} actividad={actividad} idPuntInteres={id} flor={flor} />
         ))}
+        
         <div className="flex justify-center p-4 bg-gray-100 rounded-lg shadow-md">
           <Link to={`/afegirActivitat/${id}`} className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white font-semibold rounded-md">Crear Actividad</Link>
         </div>
